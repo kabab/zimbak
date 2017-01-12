@@ -1,0 +1,25 @@
+extends jade-bootstrap/_bootstrap.jade
+
+block body
+  .container(ng-controller='UserController')
+    form(method="post", action="{{ action }}").form-signin
+      .btn-group(style="width: 100%")
+        button(type="button", style="width: 50%", ng-click="login_mode()", ng-class="{active: !register}").btn.btn-default Login
+        button(type="button", style="width: 50%", ng-click="register_mode()", ng-class="{active: register}").btn.btn-default Register
+      h2.form-signin-heading(ng-bind="welcome")
+      label(for='inputEmail').sr-only Email address
+      input(type='email', placeholder='Email', name='email', value=email)#inputEmail.form-control
+      label(for='inputPassword').sr-only Password
+      input(type='password', placeholder='Password', name='password')#inputPassword.form-control
+      label(for='inputPasswordConfirm', ng-show='register').sr-only Password confirmation
+      input(type='password', placeholder='Password confirmation', name='passwordConfirm', ng-show='register')#inputPassword.form-control
+      div.checkbox(ng-show="!register")
+        label
+          input(type='checkbox', value='remember-me')
+          span Remember me
+      #errors
+        if errors
+          ul.alert.alert-danger(style="list-style: none")
+            for error in errors
+              li=error
+      button(type='submit').btn.btn-lg.btn-primary.btn-block Sign in

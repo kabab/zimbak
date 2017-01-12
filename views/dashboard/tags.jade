@@ -1,0 +1,12 @@
+extends layout
+block sidebar
+  div
+    button.btn.btn-default.btn-block(data-toggle="modal",data-target="#tagModal") New tag
+    +modal("New tag","tagModal")
+      form
+        input.form-control(ng-model="new_tag.title", placeholder="Title", style="margin: 5px")
+        textarea.form-control(ng-model="new_tag.description", placeholder="Description", style="margin: 5px")
+        button.btn(type="button", ng-click="create_tag()", style="margin: 5px") Create
+    ul.pages.nav.nav-pills.nav-stacked
+      li(ng-repeat="tag in tags").presentation
+        a(href="/projects/" + project._id + "/tags/{{tag._id}}/plot" , ng-bind='tag.title')

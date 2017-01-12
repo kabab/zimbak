@@ -1,0 +1,9 @@
+extends tags
+
+block content
+  ul.nav.nav-tabs
+    li#nav-plot: a(href='/projects/' + project._id + '/tags/' + tag._id + '/plot') Plot
+    li#nav-log: a(href='/projects/' + project._id + '/tags/' + tag._id + '/log') Log
+    li#nav-access: a(href='/projects/' + project._id + '/tags/' + tag._id + '/access') API access
+  h2= tag.title
+  block main

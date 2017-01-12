@@ -1,0 +1,34 @@
+extends tag
+block main 
+  div(ng-controller="TagLogConroller", ng-init="init('"+ tag._id +"')")
+    #plot-tools
+      .btn-group.pull-left(style='margin-right: 5px;')
+        button.btn(ng-class="{'btn-default': filter != 'year'}", ng-click="set_filter('year')") Year
+        button.btn(ng-class="{'btn-default': filter != 'month'}", ng-click="set_filter('month')") Month
+        button.btn(ng-class="{'btn-default': filter != 'day'}", ng-click="set_filter('day')") Day
+        button.btn(ng-class="{'btn-default': filter != 'hour'}", ng-click="set_filter('hour')") Hour
+        button.btn(ng-class="{'btn-default': filter != 'minute'}", ng-click="set_filter('minute')") Minute
+      select.form-control.pull-left(style='width: 200px;', ng-model="agg", ng-change="agg_changed()")
+        option(value='sum') SUM
+        option(value='avg') AVG
+        option(value='max') MAX
+        option(value='min') MIN
+      #reportrange.pull-right(style="background: #fff; cursor: pointer; padding: 5px 10px; border: 1px solid #ccc; width: 320px;")
+        i.glyphicon.glyphicon-calendar.fa.fa-calendar &nbsp;
+        span
+        b.caret
+    div(style="padding-top: 15px")
+      table(class="table row-border hover")
+        thread
+          tr
+            th Date
+            th Value
+        tbody
+          tr(dir-paginate="value in values | itemsPerPage: 10", current-page="currentPage" pagination-id="valuesPagination")
+            td {{ value.createdAt | date:"MM/dd/yyyy 'at' HH:mm:ss" }}
+            td {{ value.value }}
+      dir-pagination-controls(pagination-id="valuesPagination")
+      
+  script.
+    var el = document.getElementById('nav-log');
+    el.classList.add('active');

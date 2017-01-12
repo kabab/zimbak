@@ -1,0 +1,17 @@
+extends layout
+block sidebar
+  div
+    button.btn.btn-block(data-toggle="modal",data-target="#myModal") New page
+    +modal("New page","myModal")
+      form
+        input.form-control(ng-model="new_page.title", placeholder="Title")
+        textarea.form-control(ng-model="new_page.description", placeholder="Description")
+        button.btn(ng-click="create_page()") Create
+    ul.pages.nav.nav-pills.nav-stacked
+      li(ng-repeat="page in pages").presentation
+        a(href="/projects/" + project._id + "/page/{{page._id}}", ng-bind='page.title' )
+    script.
+      var el = document.getElementById('pages-menu');
+      if(el) {
+        el.className += el.className ? ' active' : 'active';
+      }

@@ -1,0 +1,23 @@
+extends ./../jade-bootstrap/_bootstrap.jade
+block body
+  div(ng-controller='ProjectController')
+    div
+      button.btn.btn-default(data-toggle="modal",data-target="#projectModal", style="margin: 30px;") New project
+      +modal("New page","projectModal")
+        form
+          input.form-control(ng-model="new_project.title", placeholder="Title", style="margin: 5px")
+          textarea.form-control(ng-model="new_project.description", placeholder="Description", style="margin: 5px")
+          button.btn.btn-default(type="button", ng-click="create_project()", style="margin: 5px") Create
+    nav.navbar.navbar-default.navbar-fixed-top
+      .container-fluid
+        #top-navbar.collapse.navbar-collapse
+          ul.nav.navbar-nav
+            li: a.navbar-brand Projects
+    div.content
+      ul#projects
+        li(ng-repeat="project in projects", ng-click="select_project(project._id)"): {{ project.title }}
+block append scripts
+  script(src='/plugins/angular/angular.min.js')
+  script(src='/javascripts/app.js')
+  script(src='/javascripts/services.js')
+  script(src='/javascripts/controllers.js')
